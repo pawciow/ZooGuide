@@ -41,13 +41,12 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.mapa -> {
                 Log.d("MenuOptions", " Mapa")
-//                startMapsActivity(findViewById(R.id.mapa))
                 val intent = Intent(this, MapsActivity::class.java)
                 startActivity(intent)
                 true
             }
             R.id.item2 -> {
-                Log.d("MenuOptions", " Item 2")
+                Log.d("MenuOptions", " Statyczna mapa")
                 true
             }
             R.id.item3 -> {

@@ -18,11 +18,6 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity
-                android:name=".application.ViewBlankMapActivity"
-                android:label="@string/title_activity_view_blank_map"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
