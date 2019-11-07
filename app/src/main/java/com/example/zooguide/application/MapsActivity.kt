@@ -1,5 +1,6 @@
 package com.example.zooguide.application
 
+import Navigation
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ import com.google.android.gms.maps.model.CameraPosition
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-//    private lateinit var zooGroundOverlayOptions: GroundOverlayOptions
+    private lateinit var navigation: Navigation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.addGroundOverlay(zooGroundOverlayOptions)
         setupCamera(mMap,Zoo)
 
+        startNavigation()
+
     }
 
 
@@ -85,4 +88,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 toReturn.add(Bitmap.createBitmap(bigPicture, x * width, y * height, width, height))
         return toReturn
     }
+
+    private fun startNavigation()
+    {
+
+    }
+
 }
