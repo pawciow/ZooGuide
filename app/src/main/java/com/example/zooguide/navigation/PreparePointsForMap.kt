@@ -3,6 +3,7 @@ package com.example.zooguide.navigation
 import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
+import java.io.Console
 import java.io.File
 
 class PreparePointsForMap{
@@ -29,9 +30,9 @@ class PreparePointsForMap{
     }
 
 
-    private fun createPoints(parts: List<String>) : NavigationPoint{
+    fun createPoints(parts: List<String>) : NavigationPoint{
         return NavigationPoint(
-                parts[0].toInt(),
+            parts[0].toInt(),
                 LatLng(
                     parts[1].toDouble(),
                     parts[2].toDouble()
