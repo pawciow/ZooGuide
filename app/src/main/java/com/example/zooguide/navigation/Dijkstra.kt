@@ -1,11 +1,7 @@
 package com.example.zooguide.navigation
 
-import android.util.Log
 import com.example.zooguide.model.NavigationPoint
 import com.google.common.graph.MutableValueGraph
-import java.util.*
-import kotlin.Comparable
-import kotlin.Comparator
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
@@ -13,16 +9,7 @@ import kotlin.collections.HashSet
 class Dijkstra{
 
     private var distances : HashMap<NavigationPoint, Double> = HashMap()
-    private  var roadToDestination: HashMap<NavigationPoint, NavigationPoint> = HashMap()
-
-
-    public fun printAllHashMaps(){
-        for(navPoint in distances)
-        {
-
-        }
-
-    }
+    private  var previous: HashMap<NavigationPoint, NavigationPoint> = HashMap()
 
     fun calculateShortestPath(mutableValueGraph: MutableValueGraph<NavigationPoint, Double>,
                               startingNode: NavigationPoint, endNode: NavigationPoint
@@ -34,28 +21,15 @@ class Dijkstra{
         val S =  HashSet<NavigationPoint>()
         var Q = HashSet<NavigationPoint>()
 
-//        var Q = PriorityQueue(
-//            Comparator<NavigationPoint> { o1, o2 ->
-//            when{
-//            distances[o1]!! > distances[o2]!! -> 1
-//            distances[o1]!! < distances[o2]!! -> -1
-//            else -> 0
-//            }}
-//        )
-
-
         for(node in mutableValueGraph.nodes())
             Q.add(node)
 
         while (Q.isNotEmpty())
         {
-//            println("PRINTING QUEUE:")
-//            for(item in Q)
-//                debugPrint(item)
-            println("LEAST ELEMENT: " + extractMin(Q).id.toString() + " with distance: " + distances[extractMin(Q)].toString())
+            val u =extractMin(Q)
+            println("LEAST ELEMENT: " + u.id.toString() + " with distance: " + distances[u].toString())
 
-            val u =
-                Q.remove(extractMin(Q))
+            Q.remove(u)
             S.add(u)
 
             updateDistancesFrom(mutableValueGraph, u)
@@ -92,12 +66,13 @@ class Dijkstra{
         println("Path from " + sourceNode.id + " to " + endNode.id)
 
         path.add(endNode)
-        var it : NavigationPoint = roadToDestination[endNode]!!
+        var it : NavigationPoint = previous[endNode]!!
         while (it != sourceNode) {
             println("Adding " + it.id)
             path.add(it)
-            it = roadToDestination[it]!!
+            it = previous[it]!!
         }
+        path.add(it)
         path.add(sourceNode)
         return path.toList()
     }
@@ -123,7 +98,7 @@ class Dijkstra{
     /****************************************************************************************************/
     // Return all nodes reachable by traversing 2 edges starting from "node"
     // (ignoring edge direction and edge weights, if any, and not including "node").
-    fun getTwoHopNeighbors(graph: MutableValueGraph<NavigationPoint, Double>,
+    private fun getTwoHopNeighbors(graph: MutableValueGraph<NavigationPoint, Double>,
                            node: NavigationPoint
     )
             : Set<NavigationPoint> {
@@ -131,7 +106,7 @@ class Dijkstra{
         for (neighbor in graph.adjacentNodes(node)) {
             twoHopNeighbors.addAll(graph.adjacentNodes(neighbor))
         }
-        twoHopNeighbors.remove(node)
+        twoHopNeighbors.remove(node) // TODO: why this
         return twoHopNeighbors
     }
 
@@ -139,7 +114,7 @@ class Dijkstra{
     // in a directed Network (inner loop of Dijkstra's algorithm)
     // given a known distance for {@code node} stored in a {@code Map<N, Double>},
     // and a {@code Function<E, Double>} for retrieving a weight for an edge.
-    fun updateDistancesFrom(graph: MutableValueGraph<NavigationPoint, Double>,
+    private fun updateDistancesFrom(graph: MutableValueGraph<NavigationPoint, Double>,
                             node: NavigationPoint
     ) {
         val nodeDistance = distances[node]
@@ -149,10 +124,10 @@ class Dijkstra{
             val targetDistance = nodeDistance!! +
                     graph.edgeValueOrDefault(node, outEdge, java.lang.Double.MAX_VALUE)!!
 
-            if (targetDistance < distances.getOrDefault(target, java.lang.Double.MAX_VALUE)) {
+            if (targetDistance < distances[target]!!) {
                 println("Going from: " + node.id + " to: " + target.id)
                 distances[target] = targetDistance
-                roadToDestination[target] = node
+                previous[target] = node
             }
         }
     }

@@ -50,12 +50,12 @@ class PreparePointsForMapUnitTestStub{
     fun testDijkstraAlgorithm(){
         val dijkstra : Dijkstra = Dijkstra()
         buildGraph()
-        val expected = listOf<NavigationPoint>(A,C,B,D)
+        val expected = listOf<NavigationPoint>(A,C, D)
 
         val result = dijkstra.calculateShortestPath(mutableValueGraph,A,D)
         for (x in result)
         print(x.id.toString() + " ")
-        println("Should be 1 3 2 4")
+        println("Should be 1 3 4")
 
         assertEquals(expected, result)
     }
