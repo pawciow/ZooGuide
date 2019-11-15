@@ -1,19 +1,19 @@
 package com.example.zooguide.application
 
 import Navigation
-import android.graphics.Bitmap
+import android.content.res.AssetManager
 import android.graphics.BitmapFactory
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 
 import com.example.zooguide.R
-import com.google.android.gms.maps.CameraUpdateFactory
+import com.example.zooguide.map.MapSetup
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.android.gms.maps.model.CameraPosition
 
 
 
@@ -22,6 +22,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var navigation: Navigation
+    private lateinit var mapSetup : MapSetup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,64 +35,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        var assetManager: AssetManager = applicationContext.assets
+
+        mapSetup = MapSetup()
         mMap = googleMap
+        navigation = Navigation()
         val Zoo = LatLng(51.104210, 17.07446)
-
-
-        val marker1 = LatLng(51.102024, 17.076698)
-        val marker2 = LatLng(51.103318, 17.075869)
-
-
-        mMap.addMarker(MarkerOptions().position(Zoo).title("Marker Zoo"))
-        mMap.addMarker(MarkerOptions().position(marker1).title("Marker końcówka"))
-        mMap.addMarker(MarkerOptions().position(marker2).title("Marker skrzyżowanie"))
-
         val ZooMapID = R.drawable.compressed
-        val ZooMap = BitmapFactory
-            .decodeResource(resources, ZooMapID)
+        val ZooMap = BitmapFactory.decodeResource(resources, ZooMapID)
 
-        val zooGroundOverlayOptions = GroundOverlayOptions()
-            .image(BitmapDescriptorFactory.fromBitmap(ZooMap))
-            .position(Zoo,1100F, 1100F)
-        mMap.addGroundOverlay(zooGroundOverlayOptions)
-        setupCamera(mMap,Zoo)
+        mapSetup.setupCamera(mMap,Zoo)
+        mapSetup.placeImageOnMap(mMap,Zoo, ZooMap)
+        navigation.setUpNavigation(mMap, getString(R.string.point_list), assetManager)
 
-        startNavigation()
-
+        navigation.navigate()
     }
-
-
-    private fun setupCamera(googleMap: GoogleMap, Zoo : LatLng){
-        mMap = googleMap
-        val cameraPosition = CameraPosition.Builder()
-            .target(Zoo)
-            .zoom(20F)
-            .bearing(180F)
-            .build()
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
-    }
-
-    private fun placeImageOnMap(ZooBorders: LatLngBounds, ZooMap : Bitmap) {
-        val zooGroundOverlayOptions = GroundOverlayOptions()
-            .image(BitmapDescriptorFactory.fromBitmap(ZooMap))
-            .positionFromBounds(ZooBorders)
-        mMap.addGroundOverlay(zooGroundOverlayOptions)
-    }
-
-    private fun cutBitmapInPieces(bigPicture : Bitmap) : MutableList<Bitmap>{
-        var toReturn = mutableListOf<Bitmap>()
-        val width = 1024
-        val height = 1024
-        val it = 1
-        for (x in 0..it)
-            for(y in 0..it)
-                toReturn.add(Bitmap.createBitmap(bigPicture, x * width, y * height, width, height))
-        return toReturn
-    }
-
-    private fun startNavigation()
-    {
-
-    }
-
 }

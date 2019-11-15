@@ -3,4 +3,5 @@
     <string name="title">Przewodnik po Zoo</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_blank_map">viewBlankMapActivity</string>
+    <string name="point_list">"navigation/punkty.txt"</string>
 </resources>

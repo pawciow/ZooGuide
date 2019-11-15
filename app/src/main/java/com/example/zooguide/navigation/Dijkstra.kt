@@ -9,32 +9,29 @@ import kotlin.collections.HashSet
 class Dijkstra{
 
     private var distances : HashMap<NavigationPoint, Double> = HashMap()
-    private  var previous: HashMap<NavigationPoint, NavigationPoint> = HashMap()
+    private var previous : HashMap<NavigationPoint, NavigationPoint> = HashMap()
 
     fun calculateShortestPath(mutableValueGraph: MutableValueGraph<NavigationPoint, Double>,
                               startingNode: NavigationPoint, endNode: NavigationPoint
-    )
-            : List<NavigationPoint>
+    ) : List<NavigationPoint>
     {
-        initializeSingleSource(mutableValueGraph,startingNode)
+        initializeSingleSource(mutableValueGraph, startingNode)
 
-        val S =  HashSet<NavigationPoint>()
+        val S = HashSet<NavigationPoint>()
+
         var Q = HashSet<NavigationPoint>()
-
         for(node in mutableValueGraph.nodes())
             Q.add(node)
 
         while (Q.isNotEmpty())
         {
-            val u =extractMin(Q)
+            val u = extractMin(Q)
             println("LEAST ELEMENT: " + u.id.toString() + " with distance: " + distances[u].toString())
 
             Q.remove(u)
             S.add(u)
 
             updateDistancesFrom(mutableValueGraph, u)
-
-
         }
 
         return reconstructPath(
@@ -85,7 +82,6 @@ class Dijkstra{
             }
         }
 
-
         return soFarSmallest
 
     }
@@ -119,7 +115,7 @@ class Dijkstra{
     ) {
         val nodeDistance = distances[node]
 
-        for (outEdge in getTwoHopNeighbors(graph,node)) {
+        for (outEdge in graph.adjacentNodes(node)) {
             val target = outEdge
             val targetDistance = nodeDistance!! +
                     graph.edgeValueOrDefault(node, outEdge, java.lang.Double.MAX_VALUE)!!
