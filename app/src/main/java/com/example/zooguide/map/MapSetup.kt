@@ -3,6 +3,7 @@ package com.example.zooguide.map
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.zooguide.R
+import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.*
@@ -19,8 +20,6 @@ class MapSetup{
     }
 
     fun placeImageOnMap(googleMap: GoogleMap, Zoo: LatLng, ZooMap: Bitmap) {
-
-
         val zooGroundOverlayOptions = GroundOverlayOptions()
             .image(BitmapDescriptorFactory.fromBitmap(ZooMap))
             .position(Zoo,1100F, 1100F)
@@ -41,6 +40,15 @@ class MapSetup{
         for (x in 0..it)
             for(y in 0..it)
                 toReturn.add(Bitmap.createBitmap(bigPicture, x * width, y * height, width, height))
+        return toReturn
+    }
+
+    fun getPolyLine(points: MutableList<NavigationPoint>) : PolylineOptions{
+        val toReturn = PolylineOptions()
+        for (point in points) {
+            toReturn.add(point.coords)
+        }
+
         return toReturn
     }
 }

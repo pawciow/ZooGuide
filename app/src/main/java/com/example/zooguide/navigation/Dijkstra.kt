@@ -13,8 +13,7 @@ class Dijkstra{
 
     fun calculateShortestPath(mutableValueGraph: MutableValueGraph<NavigationPoint, Double>,
                               startingNode: NavigationPoint, endNode: NavigationPoint
-    ) : List<NavigationPoint>
-    {
+    ) : MutableList<NavigationPoint> {
         initializeSingleSource(mutableValueGraph, startingNode)
 
         val S = HashSet<NavigationPoint>()
@@ -42,9 +41,7 @@ class Dijkstra{
     }
 
     private fun initializeSingleSource(graph: MutableValueGraph<NavigationPoint, Double>,
-                                       sourceNode: NavigationPoint
-    )
-    {
+                                       sourceNode: NavigationPoint) {
         for (node in graph.nodes())
         {
             distances[node] = java.lang.Double.MAX_VALUE
@@ -56,9 +53,9 @@ class Dijkstra{
     private fun reconstructPath(graph: MutableValueGraph<NavigationPoint, Double>,
                                 sourceNode: NavigationPoint, endNode: NavigationPoint
     )
-            :List<NavigationPoint>
+            :MutableList<NavigationPoint>
     {
-        val path : HashSet<NavigationPoint> = hashSetOf()
+        val path : MutableList<NavigationPoint> = mutableListOf()
 
         println("Path from " + sourceNode.id + " to " + endNode.id)
 
@@ -69,9 +66,9 @@ class Dijkstra{
             path.add(it)
             it = previous[it]!!
         }
-        path.add(it)
+//        path.add(it)
         path.add(sourceNode)
-        return path.toList()
+        return path
     }
 
     private fun extractMin(nodes : HashSet<NavigationPoint>) : NavigationPoint{

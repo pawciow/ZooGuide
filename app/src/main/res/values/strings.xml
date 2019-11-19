@@ -4,4 +4,23 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_blank_map">viewBlankMapActivity</string>
     <string name="point_list">"navigation/punkty.txt"</string>
+
+    <string name="tiger_author">
+        Ikona stworzona przez
+        <![CDATA[ <a href="https://www.freepik.com/">Freepik</a>]]>
+        z www.flaticon.com </string>
+
+    <string name="credits_author">
+        Ikona stworzona przez
+        <![CDATA[ <a href="https://www.flaticon.com/authors/roundicons">Roundicons</a>]]>
+        z www.flaticon.com </string>
+
+    <string name="map_author">
+        Ikona stworzona przez
+        <![CDATA[ <a href="https://www.flaticon.com/authors/vectors-market">Vectors-market</a>]]>
+        z www.flaticon.com </string>
+    <string name="title_activity_animal_list_view">AnimalListView</string>
+    <string name="thumbnail">PLACEHOLDER</string>
+
+
 </resources>

@@ -1,34 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".application.MainActivity">
-    <android.support.v7.widget.Toolbar
+
+    <ImageButton
+            android:id="@+id/Start_Navigation"
+            android:layout_width="175dp"
+            android:layout_height="195dp"
+            android:scaleType="fitStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/my_toolbar"
+            app:srcCompat="@drawable/map" />
+
+    <ImageButton
+            android:id="@+id/Start_Credits"
+            android:layout_width="175dp"
+            android:layout_height="195dp"
+            android:layout_marginEnd="20dp"
+            android:scaleType="fitStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/Start_List"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.895"
+            app:srcCompat="@drawable/tiger" />
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="339dp"
+            android:layout_height="96dp"
+            android:includeFontPadding="false"
+            android:text="@string/title"
+            android:textSize="30sp"
+            app:fontFamily="@font/architects_daughter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.179" />
+
+    <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="16dp" android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="4dp"/>
-    <TextView
-            android:layout_width="314dp"
-            android:layout_height="85dp"
-            android:text="@string/title"
-            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <ImageButton
+            android:id="@+id/Start_List"
+            android:layout_width="175dp"
+            android:layout_height="195dp"
+            android:layout_marginStart="16dp"
+            android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.145"
-            android:includeFontPadding="false" app:fontFamily="@font/architects_daughter"
-            app:layout_constraintHorizontal_bias="0.494"/>
+            app:layout_constraintEnd_toStartOf="@+id/Start_Credits"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.895"
+            app:srcCompat="@drawable/info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

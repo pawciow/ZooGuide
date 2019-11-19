@@ -59,6 +59,4 @@ class PreparePointsForMapUnitTestStub{
 
         assertEquals(expected, result)
     }
-
-
 }
