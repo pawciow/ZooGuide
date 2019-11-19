@@ -87,9 +87,15 @@ class Navigation {
         }
     }
 
-    fun navigate(): MutableList<NavigationPoint>{
+    fun navigate(destinationNodeID: Int?): MutableList<NavigationPoint>{
         val source = preparePointsForMap.points.find { it.id == 1 }!!
-        val destination = preparePointsForMap.points.find { it.id == 20 }!!
+        var destination : NavigationPoint
+        if (destinationNodeID != null) {
+            destination = preparePointsForMap.points.find { it.id == destinationNodeID }!!
+        } else{
+            destination = preparePointsForMap.points.find { it.id == 20 }!!
+        }
+
          return dijkstra.calculateShortestPath(graph, source, destination)
     }
 }

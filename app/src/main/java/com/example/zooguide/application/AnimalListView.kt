@@ -2,6 +2,7 @@ package com.example.zooguide.application
 
 import android.content.res.AssetManager
 import android.os.Bundle
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import com.google.android.material.snackbar.Snackbar
@@ -39,6 +40,18 @@ class AnimalListView : AppCompatActivity() {
         }
         val adapter = MySimpleArrayAdapter(this, animalList as ArrayList<NavigationPoint>)
         listView.adapter = adapter
+
+        val context = this
+        listView.setOnItemClickListener { _, _, position, _ ->
+            // 1
+            val selectedRecipe = animalList[position]
+
+            // 2
+            val detailIntent = MapsActivity.newIntent(context, selectedRecipe)
+
+            // 3
+            startActivity(detailIntent)
+        }
 
 //// 4
 //        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)

@@ -2,6 +2,8 @@ package com.example.zooguide.application
 
 import Navigation
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.graphics.BitmapFactory
@@ -16,6 +18,7 @@ import androidx.core.content.ContextCompat
 
 import com.example.zooguide.R
 import com.example.zooguide.map.MapSetup
+import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -56,9 +59,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
         setUpGPS()
         navigation.setUpNavigation(mMap, getString(R.string.point_list), assetManager)
-        val route = navigation.navigate()
+
+        val toFind = intent.extras?.get("id") as Int
+        val route = navigation.navigate(toFind)
         mMap.addPolyline(mapSetup.getPolyLine(route))
     }
+
     private fun setUpGPS() {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
@@ -84,9 +90,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
             }
         } else {
             // Permission has already been granted
-            mMap.isMyLocationEnabled = true;
-            mMap.setOnMyLocationButtonClickListener(this);
-            mMap.setOnMyLocationClickListener(this);
+            mMap.isMyLocationEnabled = true
+            mMap.setOnMyLocationButtonClickListener(this)
+            mMap.setOnMyLocationClickListener(this)
         }
     }
 
@@ -98,5 +104,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false
+    }
+
+
+
+    //FOR LISTVIEW
+    companion object {
+        const val EXTRA_ID = "id"
+
+        fun newIntent(context: Context, destination: NavigationPoint): Intent {
+            val detailIntent = Intent(context, MapsActivity::class.java)
+
+            detailIntent.putExtra(EXTRA_ID, destination.id)
+
+            return detailIntent
+        }
     }
 }
