@@ -9,13 +9,13 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.zooguide.R
-import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
 
-class MySimpleArrayAdapter(private val context: Context,
-                           private val dataSource: ArrayList<NavigationPoint>) : BaseAdapter(){
+class AnimalArrayAdapter(context: Context,
+                         private val dataSource: ArrayList<NavigationPoint>) : BaseAdapter(){
 
-    private val inflater : LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater : LayoutInflater
+            = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     //1
     override fun getCount(): Int {
@@ -61,7 +61,7 @@ class MySimpleArrayAdapter(private val context: Context,
         val titleTextView = holder.titleTextView
         val subtitleTextView = holder.subtitleTextView
         val detailTextView = holder.detailTextView
-        val thumbnailImageView = holder.thumbnailImageView // TODO: IMPLEMENT
+//        val thumbnailImageView = holder.thumbnailImageView // TODO: IMPLEMENT
 
         val animal = getItem(position) as NavigationPoint
 

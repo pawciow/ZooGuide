@@ -1,26 +1,18 @@
+package com.example.zooguide.navigation
+
 import android.content.res.AssetManager
 import android.util.Log
 import com.example.zooguide.model.NavigationPoint
-import com.example.zooguide.navigation.Dijkstra
-import com.example.zooguide.navigation.DistanceCalculator
-import com.example.zooguide.navigation.PreparePointsForMap
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.common.graph.MutableValueGraph
 import com.google.common.graph.ValueGraphBuilder
-import java.io.BufferedInputStream
-import java.io.File
-import java.util.*
-import kotlin.Comparator
-import kotlin.collections.HashMap
-import kotlin.collections.HashSet
-import kotlin.math.min
+
 
 
 class Navigation {
     /* mutableValueGraph is a fine name for class, but not for isntacene. This is just a zoo graph*/
+    @Suppress("UnstableApiUsage") // It's because graph from Guava is marked unstable - It's still in a development
     private var graph: MutableValueGraph<NavigationPoint, Double> = ValueGraphBuilder
         .undirected()
         .build()
@@ -56,7 +48,7 @@ class Navigation {
             val destinationNode = points.find { it.id == connectionId }!!
             if(!graph.hasEdgeConnecting(sourceNode, destinationNode)){
                 try {
-                    var distance = distanceCalculator.distanceBetweenPoints(
+                    val distance = distanceCalculator.distanceBetweenPoints(
                             sourceNode.coords,
                             destinationNode.coords
                     )
@@ -89,14 +81,13 @@ class Navigation {
 
     fun navigate(destinationNodeID: Int?): MutableList<NavigationPoint>{
         val source = preparePointsForMap.points.find { it.id == 1 }!!
-        var destination : NavigationPoint
-        if (destinationNodeID != null) {
-            destination = preparePointsForMap.points.find { it.id == destinationNodeID }!!
+        val destination : NavigationPoint = if (destinationNodeID != null) {
+            preparePointsForMap.points.find { it.id == destinationNodeID }!!
         } else{
-            destination = preparePointsForMap.points.find { it.id == 20 }!!
+            preparePointsForMap.points.find { it.id == 20 }!!
         }
 
-         return dijkstra.calculateShortestPath(graph, source, destination)
+        return dijkstra.calculateShortestPath(graph, source, destination)
     }
 }
 

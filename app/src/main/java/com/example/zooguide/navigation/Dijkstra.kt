@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package com.example.zooguide.navigation
 
 import com.example.zooguide.model.NavigationPoint
@@ -11,37 +13,36 @@ class Dijkstra{
     private var distances : HashMap<NavigationPoint, Double> = HashMap()
     private var previous : HashMap<NavigationPoint, NavigationPoint> = HashMap()
 
-    fun calculateShortestPath(mutableValueGraph: MutableValueGraph<NavigationPoint, Double>,
+    fun calculateShortestPath(graph: MutableValueGraph<NavigationPoint, Double>,
                               startingNode: NavigationPoint, endNode: NavigationPoint
     ) : MutableList<NavigationPoint> {
-        initializeSingleSource(mutableValueGraph, startingNode)
+        initializeSingleSource(graph, startingNode)
 
-        val S = HashSet<NavigationPoint>()
+        val s = HashSet<NavigationPoint>()
 
-        var Q = HashSet<NavigationPoint>()
-        for(node in mutableValueGraph.nodes())
-            Q.add(node)
+        val q = HashSet<NavigationPoint>()
+        for(node in graph.nodes())
+            q.add(node)
 
-        while (Q.isNotEmpty())
+        while (q.isNotEmpty())
         {
-            val u = extractMin(Q)
+            val u = extractMin(q)
             println("LEAST ELEMENT: " + u.id.toString() + " with distance: " + distances[u].toString())
 
-            Q.remove(u)
-            S.add(u)
+            q.remove(u)
+            s.add(u)
 
-            updateDistancesFrom(mutableValueGraph, u)
+            updateDistancesFrom(graph, u)
         }
 
         return reconstructPath(
             sourceNode = startingNode,
-            graph = mutableValueGraph,
             endNode = endNode
         )
     }
 
     private fun initializeSingleSource(graph: MutableValueGraph<NavigationPoint, Double>,
-                                       sourceNode: NavigationPoint) {
+                                       sourceNode: NavigationPoint){
         for (node in graph.nodes())
         {
             distances[node] = java.lang.Double.MAX_VALUE
@@ -50,11 +51,8 @@ class Dijkstra{
         distances[sourceNode] = 0.0
     }
 
-    private fun reconstructPath(graph: MutableValueGraph<NavigationPoint, Double>,
-                                sourceNode: NavigationPoint, endNode: NavigationPoint
-    )
-            :MutableList<NavigationPoint>
-    {
+    private fun reconstructPath(sourceNode: NavigationPoint, endNode: NavigationPoint)
+            :MutableList<NavigationPoint>{
         val path : MutableList<NavigationPoint> = mutableListOf()
 
         println("Path from " + sourceNode.id + " to " + endNode.id)
@@ -66,7 +64,6 @@ class Dijkstra{
             path.add(it)
             it = previous[it]!!
         }
-//        path.add(it)
         path.add(sourceNode)
         return path
     }
@@ -83,44 +80,20 @@ class Dijkstra{
 
     }
 
-    fun debugPrint(navigationPoint: NavigationPoint){
-        println("Node: " + navigationPoint.id + " and its distance " + distances[navigationPoint].toString())
-    }
-
     // SOURCE OF FUNCTIONS UNDERNEATH: https://github.com/google/guava/wiki/GraphsExplained#code-examples
     /****************************************************************************************************/
-    // Return all nodes reachable by traversing 2 edges starting from "node"
-    // (ignoring edge direction and edge weights, if any, and not including "node").
-    private fun getTwoHopNeighbors(graph: MutableValueGraph<NavigationPoint, Double>,
-                           node: NavigationPoint
-    )
-            : Set<NavigationPoint> {
-        val twoHopNeighbors = HashSet<NavigationPoint>()
-        for (neighbor in graph.adjacentNodes(node)) {
-            twoHopNeighbors.addAll(graph.adjacentNodes(neighbor))
-        }
-        twoHopNeighbors.remove(node) // TODO: why this
-        return twoHopNeighbors
-    }
-
-    // Update the shortest-path weighted distances of the successors to "node"
-    // in a directed Network (inner loop of Dijkstra's algorithm)
-    // given a known distance for {@code node} stored in a {@code Map<N, Double>},
-    // and a {@code Function<E, Double>} for retrieving a weight for an edge.
     private fun updateDistancesFrom(graph: MutableValueGraph<NavigationPoint, Double>,
-                            node: NavigationPoint
-    ) {
+                            node: NavigationPoint) {
         val nodeDistance = distances[node]
 
         for (outEdge in graph.adjacentNodes(node)) {
-            val target = outEdge
             val targetDistance = nodeDistance!! +
                     graph.edgeValueOrDefault(node, outEdge, java.lang.Double.MAX_VALUE)!!
 
-            if (targetDistance < distances[target]!!) {
-                println("Going from: " + node.id + " to: " + target.id)
-                distances[target] = targetDistance
-                previous[target] = node
+            if (targetDistance < distances[outEdge]!!) {
+                println("Going from: " + node.id + " to: " + outEdge.id)
+                distances[outEdge] = targetDistance
+                previous[outEdge] = node
             }
         }
     }

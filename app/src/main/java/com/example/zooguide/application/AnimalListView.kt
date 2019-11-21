@@ -2,13 +2,10 @@ package com.example.zooguide.application
 
 import android.content.res.AssetManager
 import android.os.Bundle
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ListView
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zooguide.R
-import com.example.zooguide.animalList.MySimpleArrayAdapter
+import com.example.zooguide.animalList.AnimalArrayAdapter
 import com.example.zooguide.model.NavigationPoint
 import com.example.zooguide.navigation.PreparePointsForMap
 
@@ -25,7 +22,7 @@ class AnimalListView : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
 
-        var assetManager: AssetManager = applicationContext.assets
+        val assetManager: AssetManager = applicationContext.assets
 
         listView = findViewById(R.id.recipe_list_view)
 // 1
@@ -38,7 +35,7 @@ class AnimalListView : AppCompatActivity() {
             val animal = animalList[i]
             listItems[i] = animal.id.toString()
         }
-        val adapter = MySimpleArrayAdapter(this, animalList as ArrayList<NavigationPoint>)
+        val adapter = AnimalArrayAdapter(this, animalList as ArrayList<NavigationPoint>)
         listView.adapter = adapter
 
         val context = this

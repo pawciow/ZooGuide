@@ -1,6 +1,6 @@
 package com.example.zooguide.application
 
-import Navigation
+import com.example.zooguide.navigation.Navigation
 import android.Manifest
 import android.content.Context
 import android.content.Intent
@@ -32,7 +32,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     private lateinit var navigation: Navigation
     private lateinit var mapSetup : MapSetup
 
-    var MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
+    private var MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,17 +45,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        var assetManager: AssetManager = applicationContext.assets
+        val assetManager: AssetManager = applicationContext.assets
 
         mapSetup = MapSetup()
         mMap = googleMap
         navigation = Navigation()
-        val Zoo = LatLng(51.104210, 17.07446)
-        val ZooMapID = R.drawable.compressed
-        val ZooMap = BitmapFactory.decodeResource(resources, ZooMapID)
+        val zoo = LatLng(51.104210, 17.07446)
+        val zooMapID = R.drawable.compressed
+        val zooMap = BitmapFactory.decodeResource(resources, zooMapID)
 
-        mapSetup.setupCamera(mMap,Zoo)
-        mapSetup.placeImageOnMap(mMap,Zoo, ZooMap)
+        mapSetup.setupCamera(mMap, zoo)
+        mapSetup.placeImageOnMap(mMap, zoo, zooMap)
 
         setUpGPS()
         navigation.setUpNavigation(mMap, getString(R.string.point_list), assetManager)
@@ -75,6 +75,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
+                print("Explanation to the user")
+
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
@@ -110,7 +112,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
     //FOR LISTVIEW
     companion object {
-        const val EXTRA_ID = "id"
+        private const val EXTRA_ID = "id"
 
         fun newIntent(context: Context, destination: NavigationPoint): Intent {
             val detailIntent = Intent(context, MapsActivity::class.java)

@@ -4,16 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.widget.ImageButton
 import androidx.appcompat.widget.Toolbar
 import com.example.zooguide.R
 
 import com.example.zooguide.R.layout.*
-//import com.example.zooguide.R.layout.activity_main
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
