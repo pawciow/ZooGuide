@@ -8,7 +8,7 @@ import com.google.maps.android.SphericalUtil
 import java.io.*
 
 class PreparePointsForMap {
-    public var points: MutableList<NavigationPoint> = mutableListOf()
+    private var points: MutableList<NavigationPoint> = mutableListOf()
 
     public fun start(assetManager: AssetManager, fileName: String): MutableList<NavigationPoint> {
         readLinesAndFetchPoints(assetManager, fileName)

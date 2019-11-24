@@ -17,16 +17,17 @@ class Navigation {
         .undirected()
         .build()
     private var preparePointsForMap: PreparePointsForMap = PreparePointsForMap()
-    private var dijkstra: Dijkstra = Dijkstra()
+    var points: MutableList<NavigationPoint> = mutableListOf()
+    private lateinit var dijkstra: Dijkstra
     private var distanceCalculator: DistanceCalculator = DistanceCalculator()
     fun setUpNavigation(googleMap: GoogleMap, fileName: String, assetManager: AssetManager){
         readFileAndAddAllNodes(assetManager, fileName)
-        createGraph(preparePointsForMap.points)
+        createGraph(points)
         putAllEdgesOnMap(googleMap)
     }
 
     private fun readFileAndAddAllNodes(assetManager: AssetManager, fileName: String) {
-        preparePointsForMap.start(assetManager, fileName)
+        points = preparePointsForMap.start(assetManager, fileName)
     }
 
     private fun createGraph(points: MutableList<NavigationPoint>) {
@@ -80,11 +81,12 @@ class Navigation {
     }
 
     fun navigate(destinationNodeID: Int?): MutableList<NavigationPoint>{
-        val source = preparePointsForMap.points.find { it.id == 1 }!!
+        dijkstra = Dijkstra()
+        val source = points.find { it.id == 1 }!!
         val destination : NavigationPoint = if (destinationNodeID != null) {
-            preparePointsForMap.points.find { it.id == destinationNodeID }!!
+            points.find { it.id == destinationNodeID }!!
         } else{
-            preparePointsForMap.points.find { it.id == 20 }!!
+            points.find { it.id == 20 }!!
         }
 
         return dijkstra.calculateShortestPath(graph, source, destination)
