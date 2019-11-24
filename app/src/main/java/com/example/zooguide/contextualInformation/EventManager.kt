@@ -9,6 +9,8 @@ import java.util.*
 
 class EventManager : AsyncTask<Event, Void, Boolean>() {
 
+    private val events = mutableListOf<Event>()
+
     private val INTERVAL : Long = 1000 * 60 * 15
     var mHandler = Handler()
 
@@ -55,8 +57,5 @@ class EventManager : AsyncTask<Event, Void, Boolean>() {
         return currentMilli in startHourMilli..endHourMilli
     }
 }
-private class PrepareEvents : PreparePointsForMap() {
 
-
-}
 

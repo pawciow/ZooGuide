@@ -17,6 +17,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 import com.example.zooguide.R
+import com.example.zooguide.contextualInformation.CompassManager
+import com.example.zooguide.contextualInformation.EventManager
 import com.example.zooguide.map.MapSetup
 import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.GoogleMap
@@ -31,6 +33,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     private lateinit var mMap: GoogleMap
     private lateinit var navigation: Navigation
     private lateinit var mapSetup : MapSetup
+    private lateinit var eventManager: EventManager
+    private lateinit var compassManager: CompassManager
 
     private var MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
@@ -50,6 +54,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         mapSetup = MapSetup()
         mMap = googleMap
         navigation = Navigation()
+        eventManager = EventManager()
+
+
         val zoo = LatLng(51.104210, 17.07446)
         val zooMapID = R.drawable.compressed
         val zooMap = BitmapFactory.decodeResource(resources, zooMapID)
@@ -57,10 +64,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         mapSetup.setupCamera(mMap, zoo)
         mapSetup.placeImageOnMap(mMap, zoo, zooMap)
 
+        setUpEventManager()
+
         setUpGPS()
         navigation.setUpNavigation(mMap, getString(R.string.point_list), assetManager)
 
-        val toFind = intent.extras?.get("id") as Int
+        val toFind = intent.extras?.get("id") as Int?
         val route = navigation.navigate(toFind)
         mMap.addPolyline(mapSetup.getPolyLine(route))
     }
@@ -98,9 +107,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         }
     }
 
-    override fun onMyLocationClick(location: Location) {
-        Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
+    private fun setUpEventManager(){
+        eventManager.startRepeatingTask()
+
+
     }
+
+    override fun onMyLocationClick(location: Location) {
+        compassManager = CompassManager(location)
+
+        var points = mutableListOf<NavigationPoint>(
+            NavigationPoint(1,LatLng(51.1047452, 17.0061063), listOf())
+        )
+        val result = compassManager.getAllPoints(points = points)
+//        Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "Result : $result", Toast.LENGTH_LONG).show()
+    } // TODO: finish
     override fun onMyLocationButtonClick(): Boolean {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
         // Return false so that we don't consume the event and the default behavior still occurs

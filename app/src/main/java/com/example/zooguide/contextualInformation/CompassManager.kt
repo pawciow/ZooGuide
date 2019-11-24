@@ -5,16 +5,15 @@ import com.example.zooguide.model.NavigationPoint
 import com.example.zooguide.navigation.DistanceCalculator
 import com.google.android.gms.maps.model.LatLng
 
-class CompassManager(position: LatLng) {
-    private val _position = position
-    private lateinit var currentLocation: Location
+class CompassManager(location: Location) {
+    private val _location = location
     private lateinit var distanceCalculator: DistanceCalculator
     fun getAllPoints(points: MutableList<NavigationPoint>): MutableList<Direction?> {
         distanceCalculator = DistanceCalculator()
         var directions = mutableListOf<Direction?>()
 
-        currentLocation = distanceCalculator.createLocation("CURRENT", _position)
-        val tmp = distanceCalculator.calculateBearingForClosestPoints(points, currentLocation)
+//        currentLocation = distanceCalculator.createLocation("CURRENT", _position)
+        val tmp = distanceCalculator.calculateBearingForClosestPoints(points, _location)
         for (point in tmp) {
             val direction = getDirection(point.second)
             directions.add(direction)

@@ -6,7 +6,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
 
 class DistanceCalculator{
-    private val distanceWhereItsClose = 100.0
+    private val distanceWhereItsClose = 100
 
     fun distanceBetweenPoints(first: LatLng, second: LatLng) : Double {
         return SphericalUtil.computeDistanceBetween(first, second)
@@ -29,7 +29,7 @@ class DistanceCalculator{
         val locationFromPoints = findClosestPoints(points, currentLocation)
         var pointsAndBearing : MutableList<Pair<Location, Float>> = mutableListOf()
         for (point in locationFromPoints){
-            val bearing = currentLocation.bearingTo(point)
+            val bearing = currentLocation.bearingTo(point) + currentLocation.bearing
             pointsAndBearing.add(Pair(point, bearing))
         }
 
