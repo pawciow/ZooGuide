@@ -1,3 +1,5 @@
 package com.example.zooguide.model
 
-data class Animal(val name: String?, val description: String?)
+import com.google.android.gms.maps.model.LatLng
+
+data class Animal(val id: Int, val imageUrl: String, val name: String?,val coords: LatLng, val description: String?)

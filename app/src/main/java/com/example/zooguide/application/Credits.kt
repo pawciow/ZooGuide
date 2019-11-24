@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import com.example.zooguide.R
+import kotlinx.android.synthetic.main.activity_animal_list_view.*
 import kotlinx.android.synthetic.main.activity_credits.*
 import kotlinx.android.synthetic.main.activity_maps.*
 
@@ -13,6 +14,8 @@ class Credits : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_credits)
+        setSupportActionBar(toolbar)
+
 
         setupCreditsForIcons()
     }

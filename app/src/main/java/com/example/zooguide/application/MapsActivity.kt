@@ -20,6 +20,7 @@ import com.example.zooguide.R
 import com.example.zooguide.contextualInformation.CompassManager
 import com.example.zooguide.contextualInformation.EventManager
 import com.example.zooguide.map.MapSetup
+import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -136,7 +137,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     companion object {
         private const val EXTRA_ID = "id"
 
-        fun newIntent(context: Context, destination: NavigationPoint): Intent {
+        fun newIntent(context: Context, destination: Animal): Intent {
             val detailIntent = Intent(context, MapsActivity::class.java)
 
             detailIntent.putExtra(EXTRA_ID, destination.id)

@@ -9,11 +9,14 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.zooguide.R
+import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
+import com.squareup.picasso.Picasso
 
 class AnimalArrayAdapter(context: Context,
-                         private val dataSource: ArrayList<NavigationPoint>) : BaseAdapter(){
+                         private val dataSource: ArrayList<Animal>) : BaseAdapter(){
 
+    private val _context = context
     private val inflater : LayoutInflater
             = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -61,13 +64,15 @@ class AnimalArrayAdapter(context: Context,
         val titleTextView = holder.titleTextView
         val subtitleTextView = holder.subtitleTextView
         val detailTextView = holder.detailTextView
-//        val thumbnailImageView = holder.thumbnailImageView // TODO: IMPLEMENT
+        val thumbnailImageView = holder.thumbnailImageView
 
-        val animal = getItem(position) as NavigationPoint
+        val animal = getItem(position) as Animal
 
-        titleTextView.text = animal.id.toString()
-        subtitleTextView.text = animal.coords.toString()
-        detailTextView.text = animal.connections.toString()
+        titleTextView.text = animal.name
+        subtitleTextView.text = animal.description
+        detailTextView.text = animal.description
+        Picasso.with(_context).load(animal.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
+
 
 
 

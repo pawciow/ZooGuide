@@ -6,19 +6,22 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.zooguide.R
 import com.example.zooguide.animalList.AnimalArrayAdapter
+import com.example.zooguide.animalList.PrepareAnimalList
+import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
 import com.example.zooguide.navigation.PreparePointsForMap
 
 import kotlinx.android.synthetic.main.activity_animal_list_view.*
 
 class AnimalListView : AppCompatActivity() {
-    private var preparePointsForMap: PreparePointsForMap = PreparePointsForMap()
+    private var prepareAnimalList: PrepareAnimalList = PrepareAnimalList()
 
 
     private lateinit var listView : ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_animal_list_view)
+        toolbar.title = getString(R.string.animal_list)
         setSupportActionBar(toolbar)
 
 
@@ -27,7 +30,7 @@ class AnimalListView : AppCompatActivity() {
         listView = findViewById(R.id.recipe_list_view)
 // 1
         val animalList
-                = preparePointsForMap.start(assetManager, getString(R.string.point_list))
+                = prepareAnimalList.start(assetManager, getString(R.string.animal_description_list))
 // 2
         val listItems = arrayOfNulls<String>(animalList.size)
 // 3
@@ -35,25 +38,19 @@ class AnimalListView : AppCompatActivity() {
             val animal = animalList[i]
             listItems[i] = animal.id.toString()
         }
-        val adapter = AnimalArrayAdapter(this, animalList as ArrayList<NavigationPoint>)
+        val adapter = AnimalArrayAdapter(this, animalList as ArrayList<Animal>)
         listView.adapter = adapter
 
         val context = this
         listView.setOnItemClickListener { _, _, position, _ ->
             // 1
-            val selectedRecipe = animalList[position]
+            val selectedAnimal= animalList[position]
 
             // 2
-            val detailIntent = MapsActivity.newIntent(context, selectedRecipe)
+            val detailIntent = MapsActivity.newIntent(context, selectedAnimal)
 
             // 3
             startActivity(detailIntent)
         }
-
-//// 4
-//        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
-//        listView.adapter = adapter
-
     }
-
 }

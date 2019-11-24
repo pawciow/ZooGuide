@@ -17,19 +17,13 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(activity_main)
         setupImageButtons()
+
         val toolbar: Toolbar = findViewById(R.id.my_toolbar)
-
-
+        toolbar.title = "Przewodnik po zoo"
         setSupportActionBar(toolbar)
-    }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        Log.e("starting_state", " onCreateOptionsMenu is called")
-//
-//        val inflater: MenuInflater = menuInflater
-//        inflater.inflate(R.menu.menu, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
+
+    }
 
 
     private fun setupImageButtons(){

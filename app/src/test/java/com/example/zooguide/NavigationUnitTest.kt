@@ -19,7 +19,7 @@ class NavigationUnitTest {
 
 
 // Testing it from the graphs from https://medium.com/basecs/finding-the-shortest-path-with-a-little-help-from-dijkstra-613149fbdc8e
-class PreparePointsForMapUnitTestStub{
+class testDijkstraAlgorithm{
     val A: NavigationPoint = NavigationPoint(1, LatLng(0.00, 0.00), listOf<Int>(2,3))
     val B: NavigationPoint = NavigationPoint(2, LatLng(0.00, 0.00), listOf<Int>(1,3,4,5))
     val C: NavigationPoint = NavigationPoint(3, LatLng(0.00, 0.00), listOf<Int>(1,2,4))

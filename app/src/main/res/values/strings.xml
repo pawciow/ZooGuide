@@ -4,6 +4,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_blank_map">viewBlankMapActivity</string>
     <string name="point_list">"navigation/punkty.txt"</string>
+    <string name="animal_description_list">"animal_list/animals.txt"</string>
 
     <string name="tiger_author">
         Ikona stworzona przez
@@ -21,6 +22,7 @@
         z www.flaticon.com </string>
     <string name="title_activity_animal_list_view">AnimalListView</string>
     <string name="thumbnail">PLACEHOLDER</string>
+    <string name="animal_list">Lista zwierząt w zoo</string>
 
 
 </resources>

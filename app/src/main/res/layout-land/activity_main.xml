@@ -8,19 +8,21 @@
 
     <ImageButton
             android:id="@+id/Start_Navigation"
-            android:layout_width="175dp"
-            android:layout_height="195dp"
+            android:layout_width="126dp"
+            android:layout_height="116dp"
             android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.499"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/my_toolbar"
+            app:layout_constraintVertical_bias="0.586"
             app:srcCompat="@drawable/map" />
 
     <ImageButton
             android:id="@+id/Start_Credits"
-            android:layout_width="152dp"
-            android:layout_height="182dp"
+            android:layout_width="126dp"
+            android:layout_height="116dp"
             android:layout_marginEnd="20dp"
             android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,25 +30,24 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/Start_List"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.895"
+            app:layout_constraintVertical_bias="0.943"
             app:srcCompat="@drawable/tiger" />
 
     <TextView
             android:id="@+id/textView"
-            android:layout_width="350dp"
-            android:layout_height="106dp"
+            android:layout_width="551dp"
+            android:layout_height="57dp"
             android:includeFontPadding="false"
             android:text="@string/title"
-            android:textSize="30sp"
+            android:textSize="40sp"
             app:fontFamily="@font/architects_daughter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.179" />
+            app:layout_constraintVertical_bias="0.175" />
 
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
@@ -63,15 +64,15 @@
 
     <ImageButton
             android:id="@+id/Start_List"
-            android:layout_width="152dp"
-            android:layout_height="182dp"
+            android:layout_width="126dp"
+            android:layout_height="116dp"
             android:layout_marginStart="16dp"
             android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/Start_Credits"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.895"
+            app:layout_constraintVertical_bias="0.944"
             app:srcCompat="@drawable/info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
