@@ -31,7 +31,7 @@
             app:layout_constraintStart_toEndOf="@+id/Start_List"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.943"
-            app:srcCompat="@drawable/tiger" />
+            app:srcCompat="@drawable/info" />
 
     <TextView
             android:id="@+id/textView"
@@ -73,6 +73,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.944"
-            app:srcCompat="@drawable/info" />
+            app:srcCompat="@drawable/tiger" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

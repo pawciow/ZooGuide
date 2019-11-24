@@ -29,7 +29,7 @@
             app:layout_constraintStart_toEndOf="@+id/Start_List"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.895"
-            app:srcCompat="@drawable/tiger" />
+            app:srcCompat="@drawable/info" />
 
     <TextView
             android:id="@+id/textView"
@@ -41,12 +41,12 @@
             app:fontFamily="@font/architects_daughter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.179" />
+            app:layout_constraintVertical_bias="0.132" />
 
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
@@ -72,6 +72,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.895"
-            app:srcCompat="@drawable/info" />
+            app:srcCompat="@drawable/tiger" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

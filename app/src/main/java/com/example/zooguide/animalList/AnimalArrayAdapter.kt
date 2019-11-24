@@ -50,7 +50,6 @@ class AnimalArrayAdapter(context: Context,
             holder.thumbnailImageView = view.findViewById(R.id.recipe_list_thumbnail) as ImageView
             holder.titleTextView = view.findViewById(R.id.recipe_list_title) as TextView
             holder.subtitleTextView = view.findViewById(R.id.recipe_list_subtitle) as TextView
-            holder.detailTextView = view.findViewById(R.id.recipe_list_detail) as TextView
 
             // 4
             view.tag = holder
@@ -63,14 +62,12 @@ class AnimalArrayAdapter(context: Context,
 // 6
         val titleTextView = holder.titleTextView
         val subtitleTextView = holder.subtitleTextView
-        val detailTextView = holder.detailTextView
         val thumbnailImageView = holder.thumbnailImageView
 
         val animal = getItem(position) as Animal
 
         titleTextView.text = animal.name
         subtitleTextView.text = animal.description
-        detailTextView.text = animal.description
         Picasso.with(_context).load(animal.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 
 
@@ -83,7 +80,6 @@ class AnimalArrayAdapter(context: Context,
     private class ViewHolder {
         lateinit var titleTextView: TextView
         lateinit var subtitleTextView: TextView
-        lateinit var detailTextView: TextView
         lateinit var thumbnailImageView: ImageView
     }
 

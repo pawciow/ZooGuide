@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setupImageButtons()
 
         val toolbar: Toolbar = findViewById(R.id.my_toolbar)
-        toolbar.title = "Przewodnik po zoo"
+        toolbar.title = getString(R.string.main_title)
         setSupportActionBar(toolbar)
 
 

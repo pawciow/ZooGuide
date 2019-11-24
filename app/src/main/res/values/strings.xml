@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ZooGuide</string>
-    <string name="title">Przewodnik po Zoo</string>
+    <string name="title">Przewodnik po ZOO</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_view_blank_map">viewBlankMapActivity</string>
     <string name="point_list">"navigation/punkty.txt"</string>
@@ -22,7 +22,8 @@
         z www.flaticon.com </string>
     <string name="title_activity_animal_list_view">AnimalListView</string>
     <string name="thumbnail">PLACEHOLDER</string>
-    <string name="animal_list">Lista zwierząt w zoo</string>
+    <string name="animal_list">Lista zwierząt w ZOO</string>
+    <string name="main_title">Ekran główny</string>
 
 
 </resources>

@@ -1,9 +1,11 @@
 package com.example.zooguide.navigation
 
 import android.content.res.AssetManager
+import android.location.Location
 import android.util.Log
 import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.common.graph.MutableValueGraph
 import com.google.common.graph.ValueGraphBuilder
@@ -80,16 +82,19 @@ class Navigation {
         }
     }
 
-    fun navigate(destinationNodeID: Int?): MutableList<NavigationPoint>{
-        dijkstra = Dijkstra()
-        val source = points.find { it.id == 1 }!!
-        val destination : NavigationPoint = if (destinationNodeID != null) {
-            points.find { it.id == destinationNodeID }!!
-        } else{
-            points.find { it.id == 20 }!!
-        }
+    private fun findClosestNavPoint(latLng: LatLng) : NavigationPoint{
+        return points.minBy { distanceCalculator.distanceBetweenPoints(it.coords, latLng) }!!
 
-        return dijkstra.calculateShortestPath(graph, source, destination)
+    }
+
+    fun navigate(location: Location, destination: LatLng): MutableList<NavigationPoint>{
+        dijkstra = Dijkstra()
+        val source = findClosestNavPoint(
+            LatLng(location.latitude, location.longitude)
+        )
+        val destinationPoint = findClosestNavPoint(destination)
+
+        return dijkstra.calculateShortestPath(graph, source, destinationPoint)
     }
 }
 

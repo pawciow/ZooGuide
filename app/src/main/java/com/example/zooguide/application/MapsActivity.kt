@@ -22,6 +22,8 @@ import com.example.zooguide.contextualInformation.EventManager
 import com.example.zooguide.map.MapSetup
 import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -36,6 +38,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
     private lateinit var mapSetup : MapSetup
     private lateinit var eventManager: EventManager
     private lateinit var compassManager: CompassManager
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 
@@ -47,6 +50,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         Log.e("starting_state", " MAPS IS CREATED< IT SHOULD WORK")
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -70,9 +75,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         setUpGPS()
         navigation.setUpNavigation(mMap, getString(R.string.point_list), assetManager)
 
-        val toFind = intent.extras?.get("id") as Int?
-        val route = navigation.navigate(toFind)
-        mMap.addPolyline(mapSetup.getPolyLine(route))
+        val toFind = intent.extras?.get(EXTRA_COORDS) as LatLng?
+        if (toFind != null){
+            val lastLocation = fusedLocationClient.lastLocation
+                .addOnSuccessListener { location : Location? ->
+                    // Got last known location. In some rare situations this can be null.
+                    if (location != null){
+                            val route = navigation.navigate(location, toFind)
+                            mMap.addPolyline(mapSetup.getPolyLine(route))
+                    }
+             }
+        }
     }
 
     private fun setUpGPS() {
@@ -110,9 +123,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
     private fun setUpEventManager(){
         eventManager.startRepeatingTask()
-
-
-    }
+    } // TODO: finish
 
     override fun onMyLocationClick(location: Location) {
         compassManager = CompassManager(location)
@@ -135,12 +146,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
 
     //FOR LISTVIEW
     companion object {
-        private const val EXTRA_ID = "id"
+        private const val EXTRA_COORDS = "id"
 
         fun newIntent(context: Context, destination: Animal): Intent {
             val detailIntent = Intent(context, MapsActivity::class.java)
 
-            detailIntent.putExtra(EXTRA_ID, destination.id)
+            detailIntent.putExtra(EXTRA_COORDS, destination.coords)
 
             return detailIntent
         }
