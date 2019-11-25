@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 import com.example.zooguide.R
+import com.example.zooguide.animalList.PrepareAnimalList
 import com.example.zooguide.contextualInformation.CompassManager
 import com.example.zooguide.contextualInformation.EventManager
 import com.example.zooguide.map.MapSetup
@@ -70,14 +71,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         mapSetup.setupCamera(mMap, zoo)
         mapSetup.placeImageOnMap(mMap, zoo, zooMap)
 
-        setUpEventManager()
+        setUpEventManager(assetManager)
 
         setUpGPS()
         navigation.setUpNavigation(mMap, getString(R.string.point_list), assetManager)
 
         val toFind = intent.extras?.get(EXTRA_COORDS) as LatLng?
         if (toFind != null){
-            val lastLocation = fusedLocationClient.lastLocation
+            fusedLocationClient.lastLocation
                 .addOnSuccessListener { location : Location? ->
                     // Got last known location. In some rare situations this can be null.
                     if (location != null){
@@ -121,20 +122,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMyLoca
         }
     }
 
-    private fun setUpEventManager(){
-        eventManager.startRepeatingTask()
-    } // TODO: finish
+    private fun setUpEventManager(assetManager: AssetManager){
+        eventManager.setupEvents(assetManager, getString(R.string.eventList))
+        eventManager.startRepeatingTask(applicationContext)
+    }
 
     override fun onMyLocationClick(location: Location) {
         compassManager = CompassManager(location)
+        val assetManager: AssetManager = applicationContext.assets
 
-        var points = mutableListOf<NavigationPoint>(
-            NavigationPoint(1,LatLng(51.1047452, 17.0061063), listOf())
-        )
-        val result = compassManager.getAllPoints(points = points)
-//        Toast.makeText(this, "Current location:\n$location", Toast.LENGTH_LONG).show()
-        Toast.makeText(this, "Result : $result", Toast.LENGTH_LONG).show()
-    } // TODO: finish
+
+        val preparation = PrepareAnimalList()
+        val points = preparation.start(assetManager, getString(R.string.animal_description_list))
+        val result = compassManager.getAllPoints(points)
+        Toast.makeText(this, "Znalazłem : $result", Toast.LENGTH_LONG).show()
+    }
     override fun onMyLocationButtonClick(): Boolean {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show()
         // Return false so that we don't consume the event and the default behavior still occurs

@@ -24,6 +24,7 @@
     <string name="thumbnail">PLACEHOLDER</string>
     <string name="animal_list">Lista zwierząt w ZOO</string>
     <string name="main_title">Ekran główny</string>
+    <string name="eventList">animal_list/events.txt</string>
 
 
 </resources>

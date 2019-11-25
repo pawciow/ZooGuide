@@ -1,6 +1,7 @@
 package com.example.zooguide.navigation
 
 import android.location.Location
+import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.SphericalUtil
@@ -12,9 +13,9 @@ class DistanceCalculator{
         return SphericalUtil.computeDistanceBetween(first, second)
     }
 
-    private fun findClosestPoints(points: MutableList<NavigationPoint>, currentLocation: Location)
+    private fun findClosestPoints(points: MutableList<Animal>, currentLocation: Location)
             : MutableList<Location> {
-        var ediblePoints = mutableListOf<Location>()
+        val ediblePoints = mutableListOf<Location>()
         for (point in points){
             val pointLocation = createLocation(point.id.toString(), point.coords)
             if(currentLocation.distanceTo(pointLocation) < distanceWhereItsClose){
@@ -24,10 +25,10 @@ class DistanceCalculator{
         return ediblePoints
     }
 
-    fun calculateBearingForClosestPoints(points: MutableList<NavigationPoint>, currentLocation: Location)
+    fun calculateBearingForClosestPoints(points: MutableList<Animal>, currentLocation: Location)
             : MutableList<Pair<Location, Float>>{
         val locationFromPoints = findClosestPoints(points, currentLocation)
-        var pointsAndBearing : MutableList<Pair<Location, Float>> = mutableListOf()
+        val pointsAndBearing : MutableList<Pair<Location, Float>> = mutableListOf()
         for (point in locationFromPoints){
             val bearing = currentLocation.bearingTo(point) + currentLocation.bearing
             pointsAndBearing.add(Pair(point, bearing))
@@ -37,7 +38,7 @@ class DistanceCalculator{
     }
 
     fun createLocation(name: String, coordinates: LatLng) : Location{
-        var location = Location(name)
+        val location = Location(name)
         location.longitude = coordinates.longitude
         location.latitude = coordinates.latitude
         return location

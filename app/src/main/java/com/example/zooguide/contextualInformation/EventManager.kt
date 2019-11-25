@@ -1,27 +1,46 @@
 package com.example.zooguide.contextualInformation
 
+import android.content.Context
+import android.content.res.AssetManager
 import android.os.AsyncTask
 import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import com.example.zooguide.model.Event
 import com.example.zooguide.navigation.PreparePointsForMap
+import java.time.LocalTime
 import java.util.*
+import kotlin.coroutines.coroutineContext
 
-class EventManager : AsyncTask<Event, Void, Boolean>() {
-
-    private val events = mutableListOf<Event>()
+class EventManager : AsyncTask<Void, Void, MutableList<Event>>() {
+    private lateinit var _context: Context
+    private lateinit var events : MutableList<Event>
+    private val prepareEvents = PrepareEvents()
 
     private val INTERVAL : Long = 1000 * 60 * 15
     var mHandler = Handler()
 
     var mHandlerTask: Runnable = object : Runnable {
         override fun run() {
-            doInBackground()
+
+            val results = doInBackground()
+            if (results.isNotEmpty()){
+                var message = "Nadchodzące wydarzenia to: "
+                for (result in results){
+                    message += " \n ${result.description} o godzinie ${result.time}"
+                }
+                Toast.makeText(_context, message, Toast.LENGTH_LONG).show()
+            }
             mHandler.postDelayed(this, INTERVAL)
         }
     }
+    fun setupEvents(assetManager: AssetManager, fileName: String){
+        events = prepareEvents.start(assetManager, fileName)
+    }
 
-    fun startRepeatingTask() {
+
+    fun startRepeatingTask(context: Context) {
+        _context = context
         mHandlerTask.run()
     }
 
@@ -29,33 +48,17 @@ class EventManager : AsyncTask<Event, Void, Boolean>() {
         mHandler.removeCallbacks(mHandlerTask)
     }
 
-    override fun doInBackground(vararg params: Event): Boolean {
-        for (param in params){
-            param.time
-
+    override fun doInBackground(vararg params: Void?): MutableList<Event> {
+        val toReturn = mutableListOf<Event>()
+        val currentTime = LocalTime.now()
+        for (event in events){
+            if (currentTime in event.time.minusMinutes(15)..event.time){
+                toReturn.add(event)
+            }
         }
-
-        val start = 21
-        val end = 7
-        val hours = 24 - start + end
-
-        val cal = Calendar.getInstance()
-        cal.set(Calendar.HOUR_OF_DAY, start)
-        cal.set(Calendar.MINUTE, 0)
-        cal.set(Calendar.SECOND, 0)
-        cal.set(Calendar.MILLISECOND, 0)
-
-        val startHourMilli = cal.timeInMillis
-        Log.e("EventManager", cal.time.toString())
-
-        cal.add(Calendar.HOUR_OF_DAY, hours)
-        val endHourMilli = cal.timeInMillis
-
-        val currentMilli = Calendar.getInstance().timeInMillis
-
-
-        return currentMilli in startHourMilli..endHourMilli
+        return toReturn
     }
+
 }
 
 

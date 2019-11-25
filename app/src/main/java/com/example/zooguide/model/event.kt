@@ -1,8 +1,5 @@
 package com.example.zooguide.model
 
-import java.time.Clock
-import java.util.*
+import java.time.LocalTime
 
-data class Event(val id: Int, val description: String, val time: Date){
-
-}
+data class Event(val id: Int, val description: String, val time: LocalTime)

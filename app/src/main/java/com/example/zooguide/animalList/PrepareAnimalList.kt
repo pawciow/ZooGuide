@@ -11,7 +11,7 @@ import java.util.*
 class PrepareAnimalList {
     private var animals: MutableList<Animal> = mutableListOf()
 
-    public fun start(assetManager: AssetManager, fileName: String): MutableList<Animal> {
+    fun start(assetManager: AssetManager, fileName: String): MutableList<Animal> {
         readLinesAndFetchPoints(assetManager, fileName)
         return animals
     }
@@ -50,8 +50,8 @@ class PrepareAnimalList {
             parts[2],
             parts[1],
             LatLng(
-                parts[3].toDouble(),
-                parts[4].toDouble()
+                parts[3].trim().toDouble(),
+                parts[4].trim().toDouble()
             ),
             parts[5]
         )

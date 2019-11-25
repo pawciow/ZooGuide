@@ -25,7 +25,7 @@ class Navigation {
     fun setUpNavigation(googleMap: GoogleMap, fileName: String, assetManager: AssetManager){
         readFileAndAddAllNodes(assetManager, fileName)
         createGraph(points)
-        putAllEdgesOnMap(googleMap)
+//        putAllEdgesOnMap(googleMap)
     }
 
     private fun readFileAndAddAllNodes(assetManager: AssetManager, fileName: String) {
@@ -93,6 +93,8 @@ class Navigation {
             LatLng(location.latitude, location.longitude)
         )
         val destinationPoint = findClosestNavPoint(destination)
+        if(destinationPoint == source)
+            return mutableListOf()
 
         return dijkstra.calculateShortestPath(graph, source, destinationPoint)
     }

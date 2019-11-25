@@ -1,10 +1,10 @@
-1; Kolczatka;https://www.medianauka.pl/biologia/grafika/ssaki/kolczatka-australijska.jpg; 0.0; 0.0; Ten ssak wielkości królika wyglądem przypomina jeżozwierza.
-2; Lew;https://www.medianauka.pl/biologia/grafika/ssaki/lew.jpg; 0.0; 0.0; Duży, mięsożerny ssak lądowego z rodziny kotowatych.
-3; Okapi;https://www.medianauka.pl/biologia/grafika/ssaki/okapi.jpg; 0.0; 0.0 ;Ssak z rodziny żyrafowatych zamieszkujący centralną Afrykę.
-4; Orłan, bielik olbrzymi;https://www.medianauka.pl/biologia/grafika/ptaki/orlan.jpg; 0.0; 0.0;Zagrożony wyginięciem ptak drapieżny.
-5; Panda Mała;https://www.medianauka.pl/biologia/grafika/ssaki/panda-mala.jpg; 0.0; 0.0;Niewielki ssak z rodziny szopowatych.
-6; Paw Indyjski;https://www.medianauka.pl/biologia/grafika/ptaki/paw-indyjski.jpg; 0.0; 0.0; Przepiękny, duży, niezwykle kolorowy ptak z rodziny bażantowatych.
-7; Ryś;https://www.medianauka.pl/biologia/grafika/ssaki/rys.jpg; 0.0; 0.0 ;Jeden z dwóch żyjących w Polsce dzikich kotów.
-8; Słoń Indyjski;https://www.medianauka.pl/biologia/grafika/ssaki/slon-indyjski.jpg; 0.0; 0.0;Słoń indyjski jest mniejszym słoniem od słonia afrykańskiego.
-9; Sajmiri;https://www.medianauka.pl/biologia/grafika/ssaki/sajmiri-1.jpg; 0.0; 0.0;Najmniejszych małp, należąca do rodziny płaksowatych.
-10; Sika Dybowskiego;https://www.medianauka.pl/biologia/grafika/ssaki/sika-jelen-wschodni.jpg; 0.0; 0.0; Gatunek parzystokopytnego ssaka z rodziny jeleniowatych.
+1; Kolczatka;https://www.medianauka.pl/biologia/grafika/ssaki/kolczatka-australijska.jpg;51.107276;17.070134; Ten ssak wielkości królika wyglądem przypomina jeżozwierza.
+2; Lew;https://www.medianauka.pl/biologia/grafika/ssaki/lew.jpg;51.104546;17.077128; Duży, mięsożerny ssak lądowego z rodziny kotowatych.
+3; Okapi;https://www.medianauka.pl/biologia/grafika/ssaki/okapi.jpg;51.103295;17.075698;Ssak z rodziny żyrafowatych zamieszkujący centralną Afrykę.
+4; Orłan, bielik olbrzymi;https://www.medianauka.pl/biologia/grafika/ptaki/orlan.jpg;51.106723;17.071083;Zagrożony wyginięciem ptak drapieżny.
+5; Panda Mała;https://www.medianauka.pl/biologia/grafika/ssaki/panda-mala.jpg;51.104475;17.073103;Niewielki ssak z rodziny szopowatych.
+6; Paw Indyjski;https://www.medianauka.pl/biologia/grafika/ptaki/paw-indyjski.jpg;51.106095;17.073597; Przepiękny, duży, niezwykle kolorowy ptak z rodziny bażantowatych.
+7; Ryś;https://www.medianauka.pl/biologia/grafika/ssaki/rys.jpg;51.102154;17.076719;Jeden z dwóch żyjących w Polsce dzikich kotów.
+8; Słoń Indyjski;https://www.medianauka.pl/biologia/grafika/ssaki/slon-indyjski.jpg;51.106152;17.071769;Słoń indyjski jest mniejszym słoniem od słonia afrykańskiego.
+9; Sajmiri;https://www.medianauka.pl/biologia/grafika/ssaki/sajmiri-1.jpg;51.104551;17.069646;Najmniejszych małp, należąca do rodziny płaksowatych.
+10; Sika Dybowskiego;https://www.medianauka.pl/biologia/grafika/ssaki/sika-jelen-wschodni.jpg;51.104879;17.069123; Gatunek parzystokopytnego ssaka z rodziny jeleniowatych.

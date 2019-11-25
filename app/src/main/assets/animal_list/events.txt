@@ -1,0 +1,6 @@
+1;Żyrafy siatkowane (przy ładnej pogodzie);09:15:00
+2;pawiany (wybieg pawianów przy ładnej pogodzie);10:00:00
+3;nosorożce indyjskie (pawilon Terai);11:00:00
+4;hipopotamy nilowe (Afrykarium);11:00:00
+5;kotiki (wybieg zewnętrzny Afrykarium);12:00:00
+5;TEST;20:10:00

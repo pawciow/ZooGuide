@@ -4,12 +4,13 @@ import android.content.res.AssetManager
 import android.util.Log
 import com.example.zooguide.model.Event
 import java.io.*
+import java.time.LocalTime
 import java.util.*
 
 class PrepareEvents {
     private var events: MutableList<Event> = mutableListOf()
 
-    public fun start(assetManager: AssetManager, fileName: String): MutableList<Event> {
+    fun start(assetManager: AssetManager, fileName: String): MutableList<Event> {
         readLinesAndFetchPoints(assetManager, fileName)
         return events
     }
@@ -46,7 +47,7 @@ class PrepareEvents {
         return Event(
             parts[0].toInt(),
             parts[1],
-            Date(parts[3])
+            LocalTime.parse(parts[2])
         )
     }
 }

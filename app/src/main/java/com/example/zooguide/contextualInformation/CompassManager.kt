@@ -1,6 +1,7 @@
 package com.example.zooguide.contextualInformation
 
 import android.location.Location
+import com.example.zooguide.model.Animal
 import com.example.zooguide.model.NavigationPoint
 import com.example.zooguide.navigation.DistanceCalculator
 import com.google.android.gms.maps.model.LatLng
@@ -8,19 +9,26 @@ import com.google.android.gms.maps.model.LatLng
 class CompassManager(location: Location) {
     private val _location = location
     private lateinit var distanceCalculator: DistanceCalculator
-    fun getAllPoints(points: MutableList<NavigationPoint>): MutableList<Direction?> {
+    fun getAllPoints(points: MutableList<Animal>): MutableList<Pair<Animal?, Direction?>> {
         distanceCalculator = DistanceCalculator()
-        var directions = mutableListOf<Direction?>()
+        val directions = mutableListOf<Pair<Animal?, Direction?>>()
 
-//        currentLocation = distanceCalculator.createLocation("CURRENT", _position)
         val tmp = distanceCalculator.calculateBearingForClosestPoints(points, _location)
         for (point in tmp) {
             val direction = getDirection(point.second)
-            directions.add(direction)
-            print(direction)
+            val animal = getAnimalFromLocation(point.first, points)
+            directions.add(Pair(animal, direction))
         }
-
         return directions
+    }
+
+    private fun getAnimalFromLocation(location: Location, points: MutableList<Animal>) : Animal?{
+        val latLng = LatLng(location.latitude, location.longitude)
+        for (animal in points){
+            if (animal.coords == latLng)
+                return animal
+        }
+        return null
     }
 
     private fun getDirection(bearing: Float) : Direction? {

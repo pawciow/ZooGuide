@@ -22,7 +22,7 @@ class MapSetup{
     fun placeImageOnMap(googleMap: GoogleMap, Zoo: LatLng, ZooMap: Bitmap) {
         val zooGroundOverlayOptions = GroundOverlayOptions()
             .image(BitmapDescriptorFactory.fromBitmap(ZooMap))
-            .position(Zoo,1100F, 1100F)
+            .position(Zoo,1250F, 1250F)
         googleMap.addGroundOverlay(zooGroundOverlayOptions)
     }
 
@@ -33,7 +33,7 @@ class MapSetup{
         googleMap.addGroundOverlay(zooGroundOverlayOptions)
     }
     private fun cutBitmapInPieces(bigPicture : Bitmap) : MutableList<Bitmap>{
-        var toReturn = mutableListOf<Bitmap>()
+        val toReturn = mutableListOf<Bitmap>()
         val width = 1024
         val height = 1024
         val it = 1
